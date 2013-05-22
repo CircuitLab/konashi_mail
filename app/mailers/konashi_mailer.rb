@@ -8,7 +8,7 @@ class KonashiMailer < ActionMailer::Base
   #
   def help
     @greeting = "Help me!"
-    # mail to: "rei@uniba.jp"
-    mail to: "daichi@uniba.jp"
+    mail to: "rei@uniba.jp"
+    # mail to: "daichi@uniba.jp"
   end
 end
