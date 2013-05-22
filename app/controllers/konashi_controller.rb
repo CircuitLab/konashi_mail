@@ -1,5 +1,5 @@
 class KonashiController < ApplicationController
-  def help
+  def mail
     KonashiMailer.help.deliver
     render :nothing => true, :status => 200
   end

@@ -1,5 +1,9 @@
 # require "capistrano/ext/multistage"
 require "bundler/capistrano"
+set :bundle_flags, "--deployment --quiet --binstubs"
+# set (:bundle_cmd) { "#{release_path}/bin/bundle" }
+set (:bundle_cmd) { "/home/ec2-user/.rbenv/versions/2.0.0-p195/bin/bundle" }
+
 load 'deploy/assets'
 
 set :application, "konashi_mail"
@@ -38,7 +42,8 @@ set :deploy_to, "/home/#{user}/app/#{application}"
 set :deploy_via, :remote_cache
 
 set :default_environment, {
-  'PATH' => "/home/#{user}/.rbenv/shims/:/home/#{user}/.rbenv/bin/:$PATH"
+  'RBENV_ROOT' => '$HOME/.rbenv',
+  'PATH' => "$HOME/.rbenv/shims/:$HOME/.rbenv/bin/:$PATH"
 }
 
 shared_path = "#{deploy_to}/shared"
@@ -46,7 +51,7 @@ shared_path = "#{deploy_to}/shared"
 pids_file = "#{current_path}/tmp/pids/server.pid"
 namespace :deploy do
   task :start , :roles => :app do
-    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rails s -d"
+    run "cd #{current_path} && RAILS_ENV=#{rails_env} rbenv exec bundle exec rails s -d"
   end
 
   task :stop , :roles => :app do
