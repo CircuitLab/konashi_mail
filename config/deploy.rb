@@ -55,7 +55,7 @@ namespace :deploy do
   end
 
   task :stop , :roles => :app do
-    run "if test -f #{pids_file};then kill -QUIT `cat #{pids_file}`; fi"
+    run "if test -f #{pids_file};then kill `cat #{pids_file}`; fi"
   end
 
   task :restart, :roles => :app do
